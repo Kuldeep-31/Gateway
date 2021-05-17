@@ -1,4 +1,4 @@
-ifndef GATEWAY_H
+#ifndef GATEWAY_H
 #define GATEWAY_H
 
 #include <sys/socket.h>
