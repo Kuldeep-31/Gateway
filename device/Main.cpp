@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	Device inst;
-	unsigned int dev_id =0;
+	std::string dev_id;
 	float val = 0;
 	float range = 50.0;
 	if(argc != 2)
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 		{
 			if( inst.Connect_Server() == 1 )
 			{
-				dev_id = atoi(argv[1]);
+				dev_id = argv[1];
 				{
 					srand(time(0));
 					val = static_cast<float>(rand())/static_cast<float>(RAND_MAX)*range;
