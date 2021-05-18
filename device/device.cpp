@@ -60,7 +60,7 @@ int Device::Send_Data(int sock, std::string dev_id, float val)
 	{
 		ret_status =  RETURN_FAIL;
 	}
-	if( (ret_status == RETURN_SUCCESS)&&((ret_status = send(sock,reinterpret_cast<float *>(dev_data.param_value),sizeof(float),0)) < 0))
+	if( (ret_status == RETURN_SUCCESS)&&((ret_status = send(sock,reinterpret_cast<float *>(&dev_data.param_value),sizeof(float),0)) < 0))
 	{
 		ret_status =  RETURN_FAIL;
 	}
