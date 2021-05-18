@@ -64,7 +64,16 @@ void  Gateway::Process_Request(int sock)
 	Dev_Record rec = {};
 	std::vector<Dev_Record>::iterator ptr;
 	bool found = false;
-	n = read(sock,reinterpret_cast<Dev_Meta_Data*>(&tmp),sizeof(tmp));
+	int len = 0;
+	std::string str;
+	std::vector<char> name;
+	
+	n = read(sock,reinterpret_cast<int*>(&len),sizeof(int));
+	name.resize(len,0);
+	n = read(sock,&name[0],len);
+	n = read(sock,reinterpret_cast<float*>(&tmp.param_value),sizeof(float));
+	str.assign(&name[0],len);
+	tmp.device_id.assign(str);
 	if (n < 0)
 	{
 		cout<< "ERROR reading from socket"<<endl;
