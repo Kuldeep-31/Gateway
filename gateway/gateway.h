@@ -5,12 +5,12 @@
 #include <netinet/in.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <cstring>
+#include <string>
 #include <vector>
 
 /* stucture to hold device data*/
 typedef struct dev_data{
-        unsigned int device_id;
+        std::string device_id;
         float param_value;
 }Dev_Meta_Data;
 
