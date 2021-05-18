@@ -6,13 +6,13 @@
 #include <sys/types.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <cstring>
+#include <string>
 
 #define PORT 49153 
 
 /*  structure to send device data */
 typedef struct dev_data{
-        unsigned int device_id;
+        std::string device_id;
         float param_value;
 }Dev_Meta_Data;
 
@@ -27,7 +27,7 @@ public:
         int Connect_Server(void);
 
         /* Send periodic data to gateway */
-        int Send_Data(int sock,unsigned int dev_id,float val);
+        int Send_Data(int sock,std::string dev_id,float val);
 
         /* Return socket descriptor */
         int Get_Sockfd(void);
