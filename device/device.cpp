@@ -45,17 +45,25 @@ int  Device::Connect_Server(void)
 	return (ret_status);
 }
 
-int Device::Send_Data(int sock, unsigned int dev_id, float val)
+int Device::Send_Data(int sock, std::string dev_id, float val)
 {
 	int ret_status = RETURN_SUCCESS;
+	int len = dev_id.length();
 	dev_data.device_id = dev_id;
 	dev_data.param_value = val;
 //	cout<<"val="<<dev_data.value;	
-	if( (ret_status = send(sock,reinterpret_cast<Dev_Meta_Data *>(&dev_data),sizeof(dev_data),0)) < 0)
+	if( (ret_status = send(sock,reinterpret_cast<int *>(&len),sizeof(int),0)) < 0)
 	{
 		ret_status =  RETURN_FAIL;
 	}
-	
+	if( (ret_status == RETURN_SUCCESS)&&((ret_status = send(sock,dev_data.device_id.c_str(),len,0)) < 0))
+	{
+		ret_status =  RETURN_FAIL;
+	}
+	if( (ret_status == RETURN_SUCCESS)&&((ret_status = send(sock,reinterpret_cast<float *>(dev_data.param_value),sizeof(float),0)) < 0))
+	{
+		ret_status =  RETURN_FAIL;
+	}
 	return(ret_status);
 }
 
