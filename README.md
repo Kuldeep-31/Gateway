@@ -19,7 +19,7 @@ Execute the build
 
 To view the data received on the server, the server will ask you to enter 'd' or 'D' to display the record. User just needs to enter the letter and it will display the following list on terminal
 
-device identifier
-latest parameter value send by device.
-Number of values send by device
-total number of different devices connected to the server
+1) device identifier
+2) latest parameter value send by device.
+3) Number of values send by device
+4) total number of different devices connected to the server
