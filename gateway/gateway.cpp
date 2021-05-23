@@ -70,12 +70,18 @@ void  Gateway::Process_Request(int sock)
 	float val;
 	
 	n = read(sock,reinterpret_cast<int*>(&len),sizeof(int));
-	name.resize(len,0);
-	n = read(sock,&name[0],len);
-	n = read(sock,reinterpret_cast<float*>(&val),sizeof(float));
-	str1.assign(&name[0],len);
-	tmp.device_id.assign(str1);
-	tmp.param_value = val;
+	if(n>0)
+	{
+		name.resize(len,0);
+		n = read(sock,&name[0],len);
+	}
+	if(n>0)
+	{
+		n = read(sock,reinterpret_cast<float*>(&val),sizeof(float));
+		str1.assign(&name[0],len);
+		tmp.device_id.assign(str1);
+		tmp.param_value = val;
+	}
 	if (n < 0)
 	{
 		cout<< "ERROR reading from socket"<<endl;
