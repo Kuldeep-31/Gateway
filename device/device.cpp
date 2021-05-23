@@ -52,13 +52,25 @@ int Device::Send_Data(int sock, std::string dev_id, float val)
 	dev_data.device_id = dev_id;
 	dev_data.param_value = val;
 //	cout<<"val="<<dev_data.value;	
-	send(sock,reinterpret_cast<int *>(&len),sizeof(int),0);
-
-	send(sock,dev_data.device_id.c_str(),dev_data.device_id.length(),0);
-
-	if( (ret_status = send(sock,reinterpret_cast<float *>(&dev_data.param_value),sizeof(float),0)) < 0)
+	if(send(sock,reinterpret_cast<int *>(&len),sizeof(int),0)<0)
 	{
 		ret_status =  RETURN_FAIL;
+	}
+	
+	if(ret_status ==  RETURN_SUCCESS)
+	{
+		if(send(sock,dev_data.device_id.c_str(),dev_data.device_id.length(),0)<0)
+		{
+			ret_status =  RETURN_FAIL;
+		}
+	}
+	
+	if(ret_status ==  RETURN_SUCCESS)
+	{
+		if( (send(sock,reinterpret_cast<float *>(&dev_data.param_value),sizeof(float),0)) < 0)
+		{
+			ret_status =  RETURN_FAIL;
+		}
 	}
 	return(ret_status);
 }
